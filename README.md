@@ -15,9 +15,9 @@ oluşturulacaktır.
     6. Final → `float[]`
     7. Devam Sayısı → `int[]`
 
-   Dosyada bu alanlar yer almaktadır. Bu alanlar birbirinden virgül
-   ile ayrılmaktadır ve türleri yukarıda verildiği gibidir. `girdi.csv`
-   için şu adresi kullanabilirsiniz.
+    Dosyada bu alanlar yer almaktadır. Bu alanlar birbirinden virgül
+    ile ayrılmaktadır ve türleri yukarıda verildiği gibidir. `girdi.csv`
+    için şu adresi kullanabilirsiniz.
 
 2. Oluşturulacak Sınıf ismi `Student` olmalıdır ve dosyadan değerleri
    okudukça ilgili alanların değerleri ilgili değişkenlere
