@@ -1,4 +1,6 @@
+#ifdef DEBUG
 #include <iostream>
+#endif
 #include <fstream>
 #include "./functions.cpp"
 
@@ -7,7 +9,7 @@
 using namespace std;
 
 int main() {
-    
+
     ifstream notlarDosya{};
     StList list;
 
@@ -15,6 +17,20 @@ int main() {
 
     list.readFromCSV(notlarDosya);
     notlarDosya.close();
-    list.printDebug();
+    #ifdef DEBUG
+    list.printDebug(); //DEBUG
+    #endif
+    list.evalAvg();
+
+    #ifdef DEBUG
+    Student * current = list.head; // DEBUG
+
+    while(current != nullptr) {
+        cout << current->ad << ": " <<  current->ortalama << endl;
+        current = current->next;
+    }
+
+    //END DEBUG
+    #endif
     return 0;
 }
