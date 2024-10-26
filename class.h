@@ -19,12 +19,13 @@ class Student {
 };
 
 
-struct StList
+class StList
 {
-    Student* head;									// pointer to the head of list
+    public:
+    Student* head;	// pointer to the head of list
 
-    StList();									// empty list constructor
-    ~StList();								// destructor
+    StList();	// empty list constructor
+    ~StList();	// destructor
 
     void readFromCSV(ifstream&);
     void print(int); // yerleri değşecek

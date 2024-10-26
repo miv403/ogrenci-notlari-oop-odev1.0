@@ -14,7 +14,7 @@ Student::Student() {
 
 void StList::readFromCSV(ifstream& dosya){
 
-    string line{};
+    string line;
 
     getline(dosya, line);
 
@@ -22,7 +22,7 @@ void StList::readFromCSV(ifstream& dosya){
 
         Student* student = new Student;
 
-        std::vector<string> tokens;
+        vector<string> tokens;
         size_t pos = 0;
         string token;
         string delimiter = ",";
@@ -33,11 +33,6 @@ void StList::readFromCSV(ifstream& dosya){
         }
         tokens.push_back(line);
 
-        cout << tokens.at(0) << "\t";
-        cout << tokens.at(1) << "\t";
-        cout << tokens.at(2) << "\t";
-        cout << tokens.at(6) << endl;
-
         student->ad = tokens.at(0);
         student->ogrNo = tokens.at(1);
         student->sinav0 = stod(tokens.at(2));
@@ -45,13 +40,12 @@ void StList::readFromCSV(ifstream& dosya){
         student->odev = stod(tokens.at(4));
         student->final = stod(tokens.at(5));
 
-        this->addBack(student);
-    /*
-        if(tokens.at(6) == "\n")
+        if(tokens.at(6) == "")
             student->devamSayisi = 0;
         else 
             student->devamSayisi = stoi(tokens.at(6));
-    */
+        this->addBack(student);
+        cout << "added!" <<endl;
     }
 }
 
@@ -113,9 +107,18 @@ void StList::printDebug()
     }
 
     Student* first = head;
+
+    cout << "printDebug(): " << endl;
+    cout << "ad\togrNo\tsinav0\tsinav1\todev\tfinal\tdevamSayisi" << endl;
     while (first != NULL)
     {
-        cout << first-> ad <<  "\t" << first->ogrNo << endl;
+        cout << first-> ad <<  "\t";
+        cout << first->ogrNo << "\t";
+        cout << first->sinav0 << "\t";
+        cout << first->sinav1 << "\t";
+        cout << first->odev << "\t";
+        cout << first->final << "\t";
+        cout << first->devamSayisi << endl;
         first = first->next;
     }
 }
