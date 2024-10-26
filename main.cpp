@@ -2,7 +2,7 @@
 #include <fstream>
 #include "./functions.cpp"
 
-#define NOTLAR "./data/ornek.csv"
+#define NOTLAR "./data/notlar.csv"
 
 using namespace std;
 
