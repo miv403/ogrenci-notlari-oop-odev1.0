@@ -4,11 +4,10 @@ using namespace std;
 class Student {
     public:
         Student();
-        ~Student();
         void average();
         bool isPass();
         Student * next;
-    private:
+// private kaldırdım: readFromCSV ile içeriye ekleme olmuyor
         string ad;
         string ogrNo;
         double sinav0;
@@ -27,12 +26,14 @@ struct StList
     StList();									// empty list constructor
     ~StList();								// destructor
 
-    void readFromCSV();
+    void readFromCSV(ifstream&);
     void print(int); // yerleri değşecek
     void print(string); //dosyaya yazdirma
     void print(); // tüm liste
     bool empty() const;									// is list empty?
-    void addBack(const string& e, const int& i);		// add to back of list
+    void addBack(Student*);		// add to back of list
     void removeFront();									// remove front item of list
+
+    void printDebug(); // DEBUG için
 
 };
