@@ -27,7 +27,7 @@ readFromCSV()
         strtok(',', bolut)
         node->sinav
         ...
-        addBack(Student)
+        add(Student)
 
 print(int secenek) // kaldi-geçti
     
