@@ -27,6 +27,7 @@ class StList
     ~StList();	// destructor
 
     void readFromCSV(ifstream&);
+    void evalAvg();
     void print(int); // yerleri değşecek
     void print(string); //dosyaya yazdirma
     void print(); // tüm liste
