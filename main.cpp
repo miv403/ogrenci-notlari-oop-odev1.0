@@ -1,6 +1,4 @@
-#ifdef DEBUG
 #include <iostream>
-#endif
 #include <fstream>
 #include "./functions.cpp"
 
@@ -11,26 +9,30 @@ using namespace std;
 int main() {
 
     ifstream notlarDosya{};
-    StList list;
+    
+    if(!notlarDosya)
+        cerr << "Hata: " << NOTLAR << " dosyasi bulunamadi!" << endl;
 
+    StList list;
+    
     notlarDosya.open(NOTLAR);
 
     list.readFromCSV(notlarDosya);
     notlarDosya.close();
-    #ifdef DEBUG
+#ifdef DEBUG
     list.printDebug(); //DEBUG
-    #endif
+#endif
     list.evalAvg();
 
-    #ifdef DEBUG
+#ifdef DEBUG
     Student * current = list.head; // DEBUG
 
     while(current != nullptr) {
         cout << current->ad << ": " <<  current->ortalama << endl;
         current = current->next;
     }
-
     //END DEBUG
-    #endif
+#endif
+
     return 0;
 }
