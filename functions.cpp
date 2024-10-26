@@ -41,8 +41,21 @@ void StList::readFromCSV(ifstream& dosya){
         else 
             student->devamSayisi = stoi(tokens.at(6));
         addBack(student);
+        #ifdef DEBUG
         cout << "added!" <<endl;
+        #endif
     }
+}
+
+void StList::evalAvg(){
+
+    Student* current = head;
+
+    while(current != nullptr) {
+        current->average();
+        current = current->next;
+    }
+
 }
 
 void Student::average() {
