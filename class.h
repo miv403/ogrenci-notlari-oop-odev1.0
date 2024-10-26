@@ -1,12 +1,14 @@
 #include <string>
+#include <vector>
 
 using namespace std;
 class Student {
     public:
         void average();
         bool isPass();
+
         Student * next;
-// private kaldırdım: readFromCSV ile içeriye ekleme olmuyor
+        // private kaldırdım: readFromCSV ile içeriye ekleme olmuyor
         string ad;
         string ogrNo;
         double sinav0;
@@ -17,24 +19,22 @@ class Student {
         double ortalama;
 };
 
-
-class StList
-{
+class StList {
     public:
-    Student* head;	// pointer to the head of list
+        Student* head;	            // pointer to the head of list
 
-    StList();	// empty list constructor
-    ~StList();	// destructor
+        StList();	                // empty list constructor
+        ~StList();	                // destructor
 
-    void readFromCSV(ifstream&);
-    void evalAvg();
-    void print(int); // yerleri değşecek
-    void print(string); //dosyaya yazdirma
-    void print(); // tüm liste
-    bool empty() const;									// is list empty?
-    void addBack(Student*);		// add to back of list
-    void removeFront();									// remove front item of list
+        void readFromCSV(ifstream&);
+        vector<string> parseLine(string&);
+        void evalAvg();
+        void print(int);            // yerleri değşecek
+        void print(string);         //dosyaya yazdirma
+        void print();               // tüm liste
+        bool empty() const;         // is list empty?
+        void add(Student*);		    // add to back of list
+        void remove();              // remove() front item of list
 
-    void printDebug(); // DEBUG için
-
+        void printDebug(); // DEBUG için
 };
