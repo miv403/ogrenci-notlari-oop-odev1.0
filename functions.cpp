@@ -7,11 +7,6 @@
 
 using namespace std;
 
-Student::Student() {
-
-
-}
-
 void StList::readFromCSV(ifstream& dosya){
 
     string line;
@@ -97,8 +92,8 @@ void StList::removeFront()							// remove front item
         return;
     }
 
-    Student* temp	= head;									// save current head
-//  head				= head->next;							// skip over old head
+    Student* temp	= head;		// save current head
+    head				= head->next;	// skip over old head
     delete temp;												// delete the old head
 }
 
