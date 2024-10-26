@@ -5,10 +5,9 @@ class Student {
     public:
         Student();
         ~Student();
-        void readFromCSV();
         void average();
-        void print(int);
-        void print(string);
+        bool isPass();
+        Student * next;
     private:
         string ad;
         string ogrNo;
@@ -18,10 +17,6 @@ class Student {
         double final;
         int devamSayisi;
         double ortalama;
-        Student * next;
-        
-
-
 };
 
 
@@ -32,6 +27,10 @@ struct StList
     StList();									// empty list constructor
     ~StList();								// destructor
 
+    void readFromCSV();
+    void print(int); // yerleri değşecek
+    void print(string); //dosyaya yazdirma
+    void print(); // tüm liste
     bool empty() const;									// is list empty?
     void addBack(const string& e, const int& i);		// add to back of list
     void removeFront();									// remove front item of list

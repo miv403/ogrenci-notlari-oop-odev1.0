@@ -1,0 +1,46 @@
+main()
+    StList list;
+    
+    dosya = fopen()
+
+    list.readFromCSV(dosya)
+
+    Student* current = list.head
+    while (list.head != NULL)
+        current->average()
+
+    switch ... case // print seçeneği
+
+    list.print()
+        
+
+
+readFromCSV()
+
+    node = new Student;
+
+    line =  getline()
+
+    while(getline != NULL)
+        strtok(',', bolut)
+        node->adi
+        strtok(',', bolut)
+        node->sinav
+        ...
+        addBack(Student)
+
+print(int secenek) // kaldi-geçti
+    
+    node = head
+    switch
+
+    switch secenek
+    
+    ... // 0 durumu için
+    case 1
+        while(node != NULL)
+            if(node->gectiMi())
+                printf( öğrenci bilgileri)
+    ...
+
+print(string) // dosyaya yazdirma

@@ -3,11 +3,10 @@
 
 Student::Student() {
 
-    readFromCSV();
 
 }
 
-void Student::readFromCSV(){
+void StList::readFromCSV(){
     //stlist içine taşınacak
 
 }
@@ -17,6 +16,10 @@ void Student::average() {
     ortalama = (sinav0 + sinav1 + odev) * 0.2 + final * 0.4;
 }
 
+bool Student::isPass() {
+
+    return ortalama >= 50 ? true : false;
+}
 
 StList::StList()							// constructor
 {
