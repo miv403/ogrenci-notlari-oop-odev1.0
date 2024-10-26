@@ -39,12 +39,13 @@ void StList::readFromCSV(ifstream& dosya){
         student->sinav1 = stod(tokens.at(3));
         student->odev = stod(tokens.at(4));
         student->final = stod(tokens.at(5));
+        student->next = NULL;
 
         if(tokens.at(6) == "")
             student->devamSayisi = 0;
         else 
             student->devamSayisi = stoi(tokens.at(6));
-        this->addBack(student);
+        addBack(student);
         cout << "added!" <<endl;
     }
 }
@@ -80,8 +81,11 @@ void StList::addBack(Student* node)
     else
     {
         Student* first = head;
-        while (first->next != NULL) first = first->next;
+        while (first->next != NULL) {
+            first = first->next;
+        }
         first->next = node;
+
     }
 }
 
