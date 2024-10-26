@@ -3,7 +3,6 @@
 using namespace std;
 class Student {
     public:
-        Student();
         void average();
         bool isPass();
         Student * next;
