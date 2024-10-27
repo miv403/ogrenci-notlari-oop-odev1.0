@@ -46,3 +46,4 @@ oluşturulacaktır.
     dosyaya yazılmalıdır.
 
 4. Bunların dışında yardımcı metodlar da tanımlayabilirsiniz.
+asdasd
