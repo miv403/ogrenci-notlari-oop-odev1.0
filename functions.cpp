@@ -112,7 +112,7 @@ void StList::print(int){
     Student* first = head;
     void printimsi(Student*);
     int sayi;
-    cout << "0/1 (0, kalanlar; 1, gecenler)" << endl;
+    cout << "0/1 (0, kalanlar; 1, gecenler)" << endl; // FIXME: bu bölüm main'e taşınacak
     cin >> sayi;
     switch (sayi){
         case 0:
@@ -138,13 +138,16 @@ void StList::print(int){
 
 }
 void printimsi(Student* ptr){
-    cout << ptr-> ad <<  "\t";
+    cout << ptr->ad <<  "\t";
+    cout << ptr->ortalama << endl;
+    #ifdef DEBUG
     cout << ptr->ogrNo << "\t";
     cout << ptr->sinav0 << "\t";
     cout << ptr->sinav1 << "\t";
     cout << ptr->odev << "\t";
     cout << ptr->final << "\t";
     cout << ptr->devamSayisi << endl;
+    #endif
 }
 void StList::print(string dosyastr){
     Student* first=head;
