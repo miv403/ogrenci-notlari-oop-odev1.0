@@ -48,16 +48,18 @@ int main() {
         do{
             printMenu();
             cin >> girdi;
-            list.print(dosyaYolu, girdi);
-        }while(girdi < '0' && girdi > '2');
+        }while(girdi < '0' || girdi > '2');
+
+        list.print(dosyaYolu, girdi);
+
     }else if(girdi == 'H' || girdi == 'h') {
+
         do{
             printMenu();
             cin >> girdi;
-            girdi == '2' ? list.print() : list.print(girdi);
-           // list.print(girdi); //FIXME: 2 durumu için çalışmıyor
-                                    // bkz. -> functions.cpp StList::print(int)
-        }while(girdi < '0' && girdi > '2');
+        }while(girdi < '0' || girdi > '2');
+
+        girdi == '2' ? list.print() : list.print(girdi);
     }
     return 0;
 }

@@ -36,6 +36,7 @@ class StList {
         bool empty() const;         // is list empty?
         void add(Student*);		    // add to back of list
         void remove();              // remove() front item of list
-        void printLine(ostream&, Student*, char);
+        void printLine(Student*);
+        void writeLine(ofstream&, Student*);
         void printDebug(); // DEBUG için
 };
