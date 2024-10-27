@@ -70,7 +70,7 @@ void Student::average() {
 }
 
 bool Student::isPass() {
-    return ((ortalama >= 50) && (devamSayisi < 5)) ? true : false;
+    return ((ortalama >= 50) ) ? true : false;
 }
 
 StList::StList() {
@@ -107,6 +107,65 @@ void StList::remove() {
     delete temp;                // delete the old head
 }
 
+void StList::print(int){
+
+    Student* first = head;
+    void printimsi(Student*);
+    int sayi;
+    cout << "0/1 (0, kalanlar; 1, gecenler)" << endl;
+    cin >> sayi;
+    switch (sayi){
+        case 0:
+           while(first!=NULL){
+            if(!first->isPass()){
+                printimsi(first);
+            }
+            first=first->next;
+           }
+        break;
+        case 1:
+            while(first!=NULL){
+            if(first->isPass()){
+                printimsi(first);
+            }
+            first=first->next;
+           }
+           break;
+        default:
+            cout << "Gecersiz sayi" << endl;
+            break;
+    }
+
+}
+void printimsi(Student* ptr){
+    cout << ptr-> ad <<  "\t";
+    cout << ptr->ogrNo << "\t";
+    cout << ptr->sinav0 << "\t";
+    cout << ptr->sinav1 << "\t";
+    cout << ptr->odev << "\t";
+    cout << ptr->final << "\t";
+    cout << ptr->devamSayisi << endl;
+}
+void StList::print(string dosyastr){
+    Student* first=head;
+    ofstream dosya(dosyastr, ios::trunc);
+    while(first!=NULL){
+        if(first->isPass())
+            dosya << first->ad << ": Gecti "<< first->ortalama<< endl;
+        else if(!first->isPass())
+            dosya << first->ad << ": Kaldi "<< first->ortalama<< endl;
+        first=first->next;
+    }
+}
+
+void StList::print(){
+    void printimsi(Student*);
+    Student* first=head;
+    while(first !=NULL){
+        printimsi(first);
+        first=first->next;
+    }
+}
 #ifdef DEBUG
 void StList::printDebug() {
     if (empty())
