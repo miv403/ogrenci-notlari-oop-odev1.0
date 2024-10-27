@@ -1,12 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 #include "./functions.cpp"
 
 #define NOTLAR "./data/notlar.csv"
 
 using namespace std;
 
+void printMenu();
 int main() {
 
     ifstream notlarDosya{};
@@ -34,36 +36,36 @@ int main() {
     }
     //END DEBUG
 #endif
-    string girdi{};
+    char girdi{};
     string dosyaYolu{};
 
     cout << "sonuclari dosyaya yazdirmak ister misiniz [E/h]" << endl << "? ";
-    getline(cin, girdi);
-    
-    if(girdi == "E" || girdi == "e") {
+    cin >> girdi;
+
+    if(girdi == 'E' || girdi == 'e') {
         cout << "dosya yolunu giriniz: ";
-        getline(cin, dosyaYolu);
-        do{                   // FIXME: dosya yolu fonksiyonu 
-            cout << endl << "0. kalanlar" << endl;
-            cout <<         "1. geçenler" << endl;
-            cout <<         "2. tüm liste" << endl;
-            getline(cin, girdi);
-            if      (girdi == "0") {list.print(0); break;}
-            else if (girdi == "1") {list.print(1); break;}
-            else if (girdi == "2") {list.print(dosyaYolu); break;}
-            else    cerr << "gecersiz secenek!" << endl;
-        }while(true);
-    }else if(girdi == "H" || girdi == "h") {
+        cin >> dosyaYolu;
         do{
-            cout << "0. kalanlar" << endl;
-            cout << "1. geçenler" << endl;
-            cout << "2. tüm liste" << endl;
-            getline(cin, girdi);
-            if      (girdi == "0") {list.print(0); break;}
-            else if (girdi == "1") {list.print(1); break;}
-            else if (girdi == "2") {list.print(); break;}
-            else    cerr << "gecersiz secenek!" << endl;
-    }while(true);
+            printMenu();
+            cin >> girdi;
+            list.print(dosyaYolu, girdi);
+        }while(girdi < '0' && girdi > '2');
+    }else if(girdi == 'H' || girdi == 'h') {
+        do{
+            printMenu();
+            cin >> girdi;
+            girdi == '2' ? list.print() : list.print(girdi);
+           // list.print(girdi); //FIXME: 2 durumu için çalışmıyor
+                                    // bkz. -> functions.cpp StList::print(int)
+        }while(girdi < '0' && girdi > '2');
     }
     return 0;
+}
+
+void printMenu() {
+            cout <<  setw(14) << setfill('-') << "" << endl; // FIXME: hizalama hatası var.
+            cout << "0. kalanlar" << endl;
+            cout << "1. gecenler" << endl;
+            cout << "2. tum liste" << endl;
+            cout << "? ";
 }

@@ -9,7 +9,7 @@
       "stopAtEntry": false,
       "externalConsole": true,
       "cwd": "c:/Users/ahmet emin/programming/COM2009/odev1",
-      "program": "c:/Users/ahmet emin/programming/COM2009/odev1/build/Debug/outDebug",
+      "program": "c:/Users/ahmet emin/programming/COM2009/odev1/build/Release/outRelease",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

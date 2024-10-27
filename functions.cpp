@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -107,66 +108,112 @@ void StList::remove() {
     delete temp;                // delete the old head
 }
 
-void StList::print(int){
-
-    Student* first = head;
-    void printimsi(Student*);
-    int sayi;
-    cout << "0/1 (0, kalanlar; 1, gecenler)" << endl; // FIXME: bu bölüm main'e taşınacak
-    cin >> sayi;
-    switch (sayi){
-        case 0:
-           while(first!=NULL){
-            if(!first->isPass()){
-                printimsi(first);
-            }
-            first=first->next;
-           }
-        break;
-        case 1:
-            while(first!=NULL){
-            if(first->isPass()){
-                printimsi(first);
-            }
-            first=first->next;
-           }
-           break;
-        default:
-            cout << "Gecersiz sayi" << endl;
-            break;
+void StList::print(int opt){ // ekrana yazdırma
+    
+    Student* current = head;
+    
+    opt = (opt == '0') ? false : true;
+    while(current != nullptr){
+        if((opt ? current->isPass() : !current->isPass())){
+            printLine(cout, current, '\t');
+            cout << (current->isPass() ? "gecti" : "kaldi") << endl;
+        }
+        current = current->next;
     }
+    /*
+    switch (opt){
+        case '0':
+            while(current != nullptr){
+                if((opt ? current->isPass() : !current->isPass())){
+                    printLine(cout, current, '\t');
+                    cout << "kaldi" << endl;
+                }
+                current = current->next;
+            }
+        break;
+        case '1':
+            while(current!= nullptr){
+                if(current->isPass()){
+                    printLine(cout, current, '\t');
+                    cout << "gecti" << endl;
+                }
+                current = current->next;
+            }
+            break;
+        case '2':
+            while(current != nullptr) {
+                printLine(cout, current, '\t');
+                cout << (current->isPass() ? "gecti" : "kaldi") << endl;
+            }
+        break;
+        default:
+            cerr << "StList::print(int): Gecersiz sayi" << endl;
+        break;
+    }
+    */
 
 }
-void printimsi(Student* ptr){
-    cout << ptr->ad <<  "\t";
-    cout << ptr->ortalama << endl;
-    #ifdef DEBUG
-    cout << ptr->ogrNo << "\t";
+void StList::printLine(ostream& Ostr,Student* ptr, char delim){
+    Ostr << setw(12) << setfill(' ') << left;
+    Ostr << ptr->ad ;
+    Ostr << setw(5) << right;
+    Ostr << ptr->ortalama << delim;
+    #ifdef DEBUG 
+{   cout << ptr->ogrNo << "\t";
     cout << ptr->sinav0 << "\t";
     cout << ptr->sinav1 << "\t";
     cout << ptr->odev << "\t";
     cout << ptr->final << "\t";
-    cout << ptr->devamSayisi << endl;
+}   cout << ptr->devamSayisi << endl;
     #endif
 }
-void StList::print(string dosyastr){
-    Student* first=head;
-    ofstream dosya(dosyastr, ios::trunc);
-    while(first!=NULL){
-        if(first->isPass())
-            dosya << first->ad << ": Gecti "<< first->ortalama<< endl;
-        else if(!first->isPass())
-            dosya << first->ad << ": Kaldi "<< first->ortalama<< endl;
-        first=first->next;
+void StList::print(string& dosyaStr, int opt){ // dosyaya yazdırma
+    Student* current = head;
+    ofstream dosya(dosyaStr, ios::trunc);
+
+    dosya << "ad, ortalama, gecme durumu" << endl;
+    switch (opt) {
+    case '0':                     // kalanlar
+        while(current!=nullptr){
+            if(current->isPass()) {
+                current = current->next;
+                continue;
+            }
+            printLine(dosya, current, ',');
+            dosya << "kaldi" << endl;
+            current = current->next;
+        }
+    break;
+    case '1':                    // gecenler
+        while(current!=nullptr){
+            if(!current->isPass()) {
+                current = current->next;
+                continue;
+            }
+            printLine(dosya, current, ',');
+            dosya << "gecti" << endl;
+            current = current->next;
+        }
+    break;
+    case '2':                 // tum liste
+        while(current != nullptr) {
+            printLine(dosya, current, ',');
+            dosya << (current->isPass() ? "gecti" : "kaldi") << endl;
+            current = current->next;
+        }
+    break;
+    default:
+        cerr << "StList::print(): gecersiz int opt" << endl;
+    break;
     }
 }
 
 void StList::print(){
-    void printimsi(Student*);
-    Student* first=head;
-    while(first !=NULL){
-        printimsi(first);
-        first=first->next;
+    Student* current = head;
+    while(current != nullptr){
+        printLine(cout, current, '\t');
+        cout << (current->isPass() ? "gecti" : "kaldi") << endl;
+        current = current->next;
     }
 }
 #ifdef DEBUG

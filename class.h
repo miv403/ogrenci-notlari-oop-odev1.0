@@ -1,3 +1,4 @@
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -30,11 +31,11 @@ class StList {
         vector<string> parseLine(string&);
         void evalAvg();
         void print(int);            // yerleri değşecek
-        void print(string);         //dosyaya yazdirma
+        void print(string&, int);         //dosyaya yazdirma
         void print();               // tüm liste
         bool empty() const;         // is list empty?
         void add(Student*);		    // add to back of list
         void remove();              // remove() front item of list
-
+        void printLine(ostream&, Student*, char);
         void printDebug(); // DEBUG için
 };
