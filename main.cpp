@@ -33,6 +33,6 @@ int main() {
     }
     //END DEBUG
 #endif
-
+    list.print("test");
     return 0;
 }
