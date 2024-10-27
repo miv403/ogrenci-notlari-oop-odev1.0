@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "./functions.cpp"
 
 #define NOTLAR "./data/notlar.csv"
@@ -33,6 +34,36 @@ int main() {
     }
     //END DEBUG
 #endif
-    list.print("test");
+    string girdi{};
+    string dosyaYolu{};
+
+    cout << "sonuclari dosyaya yazdirmak ister misiniz [E/h]" << endl << "? ";
+    getline(cin, girdi);
+    
+    if(girdi == "E" || girdi == "e") {
+        cout << "dosya yolunu giriniz: ";
+        getline(cin, dosyaYolu);
+        do{                   // FIXME: dosya yolu fonksiyonu 
+            cout << endl << "0. kalanlar" << endl;
+            cout <<         "1. geçenler" << endl;
+            cout <<         "2. tüm liste" << endl;
+            getline(cin, girdi);
+            if      (girdi == "0") {list.print(0); break;}
+            else if (girdi == "1") {list.print(1); break;}
+            else if (girdi == "2") {list.print(dosyaYolu); break;}
+            else    cerr << "gecersiz secenek!" << endl;
+        }while(true);
+    }else if(girdi == "H" || girdi == "h") {
+        do{
+            cout << "0. kalanlar" << endl;
+            cout << "1. geçenler" << endl;
+            cout << "2. tüm liste" << endl;
+            getline(cin, girdi);
+            if      (girdi == "0") {list.print(0); break;}
+            else if (girdi == "1") {list.print(1); break;}
+            else if (girdi == "2") {list.print(); break;}
+            else    cerr << "gecersiz secenek!" << endl;
+    }while(true);
+    }
     return 0;
 }
