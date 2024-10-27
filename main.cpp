@@ -91,8 +91,10 @@ void BASLIK() {
     const string MAGENTA = "\033[35m";
     const string CYAN = "\033[36m";
     const string BCYAN = "\033[96m";
+    const string BGREEN = "\033[92m";
     const string RESET = "\033[0m";  // Resets to default color
 
+/*
 cout <<" .---,.-..-..-..---. " << endl;
 cout <<"  / / | | >  / | | | " << endl;
 cout <<" `---'`-' `-'  `-^-' " << endl;
@@ -102,32 +104,31 @@ cout <<"      8888    888  888   888  ooooo888   " << endl;
 cout <<"   8888       888   888 888 888    888   " << endl;
 cout <<" o888ooooooo o888o    8888   88ooo88 8o  " << endl;
 cout <<"                  o9o888                 " << endl;
-
-cout << RED <<     "              _/                      " << endl;
-cout << GREEN <<   "   _/_/_/_/      _/    _/    _/_/_/   " << endl;
-cout << YELLOW <<  "      _/    _/  _/    _/  _/    _/    " << endl;
-cout << BLUE <<    "   _/      _/  _/    _/  _/    _/     " << endl;
+*/
+cout << MAGENTA << "              _/                      " << endl;
+cout << MAGENTA << "   _/_/_/_/      _/    _/    _/_/_/   " << endl;
+cout << MAGENTA << "      _/    _/  _/    _/  _/    _/    " << endl;
+cout << MAGENTA << "   _/      _/  _/    _/  _/    _/     " << endl;
 cout << MAGENTA << "_/_/_/_/  _/    _/_/_/    _/_/_/      " << endl;
-cout << CYAN <<    "                   _/                 " << endl;
-cout <<           "              _/_/                    " << endl;
+cout << MAGENTA << "                   _/                 " << endl;
+cout << MAGENTA << "              _/_/                    " << endl;
 
-cout <<RED <<     "                                            _/           " << endl;
-cout <<BCYAN <<   "     _/_/_/        _/_/    _/_/_/  _/_/        _/_/_/    " << endl;
-cout <<RED <<  "  _/    _/      _/_/_/_/  _/    _/    _/  _/  _/    _/   " << endl;
-cout <<BCYAN <<    " _/    _/      _/        _/    _/    _/  _/  _/    _/    " << endl;
-cout <<RED << "  _/_/_/  _/    _/_/_/  _/    _/    _/  _/  _/    _/     " << endl;
-cout <<BCYAN <<    " " << endl;
-cout <<           " " << endl;
-
-
-    cout << RED <<     "This text is red."     << RESET << std::endl;
-    cout << GREEN <<   "This text is green."   << RESET << std::endl;
-    cout << YELLOW <<  "This text is yellow."  << RESET << std::endl;
-    cout << BLUE <<    "This text is blue."    << RESET << std::endl;
+cout <<BGREEN << "                                            _/           " << endl;
+cout <<BGREEN << "     _/_/_/        _/_/    _/_/_/  _/_/        _/_/_/    " << endl;
+cout <<BGREEN << "  _/    _/      _/_/_/_/  _/    _/    _/  _/  _/    _/   " << endl;
+cout <<BGREEN << " _/    _/      _/        _/    _/    _/  _/  _/    _/    " << endl;
+cout <<BGREEN << "  _/_/_/  _/    _/_/_/  _/    _/    _/  _/  _/    _/     " << endl;
+cout << RESET << endl << endl;
+/*
+    cout << RED     <<     "This text is red."     << RESET << std::endl;
+    cout << GREEN   <<   "This text is green."   << RESET << std::endl;
+    cout << YELLOW  <<  "This text is yellow."  << RESET << std::endl;
+    cout << BLUE    << "This text is blue."    << RESET << std::endl;
     cout << MAGENTA << "This text is magenta." << RESET << std::endl;
-    cout << CYAN <<    "This text is cyan."    << RESET << std::endl;
+    cout << CYAN    <<    "This text is cyan."    << RESET << std::endl;
 
     const string DENEME = "\033[91m";
     cout << DENEME <<    "This text is DENEME."    << RESET << std::endl;
+*/
 }
 
