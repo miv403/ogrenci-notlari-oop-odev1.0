@@ -117,9 +117,9 @@ void StList::print(int opt){ // ekrana yazdırma
         if((opt ? current->isPass() : !current->isPass())){
             cout << setw(12) << setfill(' ') << left;
             cout << current->ad;
-            cout << setw(5) << right;
+            cout << setw(12) << right;
             cout << current->ortalama;
-            cout << setw(7) << right;
+            cout << setw(18) << right;
             cout << (current->isPass() ? "gecti" : "kaldi") << endl;
         }
         current = current->next;
@@ -160,44 +160,7 @@ void StList::print(string& dosyaStr, int opt){ // dosyaya yazdırma
         }
     break;
     }
-    
 
-/*
-    switch (opt) {
-    case '0':                     // kalanlar
-        while(current!=nullptr){
-            if(current->isPass()) {
-                current = current->next;
-                continue;
-            }
-            writeLine(dosya, current);
-            dosya << "kaldi" << endl;
-            current = current->next;
-        }
-    break;
-    case '1':                    // gecenler
-        while(current!=nullptr){
-            if(!current->isPass()) {
-                current = current->next;
-                continue;
-            }
-            writeLine(dosya, current);
-            dosya << "gecti" << endl;
-            current = current->next;
-        }
-    break;
-    case '2':                 // tum liste
-        while(current != nullptr) {
-            writeLine(dosya, current);
-            dosya << (current->isPass() ? "gecti" : "kaldi") << endl;
-            current = current->next;
-        }
-    break;
-    default:
-        cerr << "StList::print(): gecersiz int opt" << endl;
-    break;
-    }
-*/
 }
 
 void StList::print(){
@@ -205,9 +168,9 @@ void StList::print(){
     while(current != nullptr){
         cout << setw(12) << setfill(' ') << left;
         cout << current->ad;
-        cout << setw(5) << right;
+        cout << setw(12) << right;
         cout << current->ortalama;
-        cout << setw(7) << right;
+        cout << setw(18) << right;
         cout << (current->isPass() ? "gecti" : "kaldi") << endl;
         current = current->next;
     }
