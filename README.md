@@ -1,3 +1,8 @@
+---
+author: miv403, zia
+date: 2024-10-26
+---
+
 # COM2009 OOP birinci ödev
 
 2024-2025 güz nesne yönelimli programlama ödevi.
