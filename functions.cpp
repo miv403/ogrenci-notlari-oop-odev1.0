@@ -15,7 +15,7 @@ void Student::average() {
 }
 
 bool Student::isPass() {
-    return ((ortalama >= 50) ) ? true : false;
+    return ((ortalama >= 50) && devamSayisi >= 7 ) ? true : false;
 }
 
 /************************** StList *****************************/

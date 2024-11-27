@@ -13,7 +13,7 @@ void BASLIK();
 
 int main() {
 
-    BASLIK();
+    // BASLIK();
 
     ifstream notlarDosya{};
 
@@ -39,9 +39,10 @@ int main() {
     Student * current = list.head; // DEBUG
 
     while(current != nullptr) {
-        cout << current->ad << ": " <<  current->ortalama << endl;
+        cout << current->devamSayisi << endl;
         current = current->next;
     }
+
     //END DEBUG
 #endif
 
