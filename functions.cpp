@@ -8,21 +8,24 @@
 
 using namespace std;
 
-vector<string> StList::parseLine(string& line) {
+/************************** Student *****************************/
 
-    vector<string> tokens;
-    // alınan satırın virgülle vektöre eklenmesi
-    size_t pos = 0;
-    string token;
-    string delimiter = ",";
-    while ((pos = line.find(delimiter)) != string::npos) {
-        token = line.substr(0, pos);
-        tokens.push_back(token);
-        line.erase(0, pos + delimiter.length());
-    }
-    tokens.push_back(line);
+void Student::average() {
+    ortalama = (sinav0 + sinav1 + odev) * 0.2 + final * 0.4;
+}
 
-    return tokens;
+bool Student::isPass() {
+    return ((ortalama >= 50) ) ? true : false;
+}
+
+/************************** StList *****************************/
+
+StList::StList() {
+    head = NULL;
+}
+
+StList::~StList() {
+    while (!empty()) remove();
 }
 
 void StList::readFromCSV(ifstream& dosya) {
@@ -35,7 +38,9 @@ void StList::readFromCSV(ifstream& dosya) {
 
         Student* student = new Student;
 
-        vector<string> tokens = parseLine(line); // ["ziya","123","456", ... ""] // string vektörü
+        vector<string> tokens = parseLine(line); 
+
+        // ["ziya","123","456", ... ""] // string vektörü
 
         student->ad = tokens.at(0);
         student->ogrNo = tokens.at(1);
@@ -66,53 +71,24 @@ void StList::evalAvg() {
     }
 }
 
-void Student::average() {
-    ortalama = (sinav0 + sinav1 + odev) * 0.2 + final * 0.4;
-}
-
-bool Student::isPass() {
-    return ((ortalama >= 50) ) ? true : false;
-}
-
-StList::StList() {
-    head = NULL;
-}
-
-StList::~StList() {
-    while (!empty()) remove();
-}
-
-bool StList::empty() const {
-    return head == NULL;
-}
-
-void StList::add(Student* node) {
-    if (head == NULL) head = node;
-    else {
-        Student* first = head;
-        while (first->next != NULL) {
-            first = first->next;
-        }
-        first->next = node;
+void StList::print(){
+    Student* current = head;
+    while(current != nullptr){
+        cout << setw(12) << setfill(' ') << left;
+        cout << current->ad;
+        cout << setw(12) << right;
+        cout << current->ortalama;
+        cout << setw(18) << right;
+        cout << (current->isPass() ? "gecti" : "kaldi") << endl;
+        current = current->next;
     }
-}
-
-void StList::remove() {
-    if (empty()) {
-        cout << "List is empty !" << endl;
-        return;
-    }
-
-    Student* temp	= head;     // save current head
-    head = head->next;          // skip over old head
-    delete temp;                // delete the old head
 }
 
 void StList::print(int opt){ // ekrana yazdırma
     
     Student* current = head;
     
-    opt = (opt == '0') ? false : true;
+    opt = !(opt == '0');
     while(current != nullptr){
         if((opt ? current->isPass() : !current->isPass())){
             cout << setw(12) << setfill(' ') << left;
@@ -124,14 +100,7 @@ void StList::print(int opt){ // ekrana yazdırma
         }
         current = current->next;
     }
-    
 }
-
-void StList::writeLine(ofstream& file, Student* ptr){
-    file << ptr->ad << ',' ;
-    file << ptr->ortalama << ',';
-}
-
 
 void StList::print(string& dosyaStr, int opt){ // dosyaya yazdırma
     Student* current = head;
@@ -163,18 +132,51 @@ void StList::print(string& dosyaStr, int opt){ // dosyaya yazdırma
 
 }
 
-void StList::print(){
-    Student* current = head;
-    while(current != nullptr){
-        cout << setw(12) << setfill(' ') << left;
-        cout << current->ad;
-        cout << setw(12) << right;
-        cout << current->ortalama;
-        cout << setw(18) << right;
-        cout << (current->isPass() ? "gecti" : "kaldi") << endl;
-        current = current->next;
+
+void StList::add(Student* node) {
+    if (head == NULL) head = node;
+    else {
+        Student* first = head;
+        while (first->next != NULL) {
+            first = first->next;
+        }
+        first->next = node;
     }
 }
+
+void StList::remove() {
+    if (empty()) {
+        cout << "List is empty !" << endl;
+        return;
+    }
+
+    Student* temp	= head;     // save current head
+    head = head->next;          // skip over old head
+    delete temp;                // delete the old head
+}
+
+bool StList::empty() const {
+    return head == NULL;
+}
+
+vector<string> StList::parseLine(string& line) {
+    // alınan satırın virgülle vektöre eklenmesi
+
+    vector<string> tokens; // degerlerin listesi
+    size_t pos = 0;
+    string token;
+    string delimiter = ",";
+
+    while ((pos = line.find(delimiter)) != string::npos) {
+        token = line.substr(0, pos);
+        tokens.push_back(token);
+        line.erase(0, pos + delimiter.length());
+    }
+    tokens.push_back(line);
+
+    return tokens;
+}
+
 #ifdef DEBUG
 void StList::printDebug() {
     if (empty())
