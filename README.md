@@ -26,7 +26,7 @@ oluşturulacaktır.
 
     Dosyada bu alanlar yer almaktadır. Bu alanlar birbirinden virgül
     ile ayrılmaktadır ve türleri yukarıda verildiği gibidir. `girdi.csv`
-    için şu adresi kullanabilirsiniz.
+    için [şu adresi](https://raw.githubusercontent.com/zyavuz610/data/refs/heads/master/ogrenci-not/öğrenci%20notları%20-%20isimli.csv) kullanabilirsiniz.
 
 2. Oluşturulacak Sınıf ismi `Student` olmalıdır ve dosyadan değerleri
    okudukça ilgili alanların değerleri ilgili değişkenlere

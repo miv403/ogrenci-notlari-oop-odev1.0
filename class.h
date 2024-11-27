@@ -31,7 +31,7 @@ class StList {
         vector<string> parseLine(string&);
         void evalAvg();
         void print(int);            // yerleri değşecek
-        void print(string&, int);         //dosyaya yazdirma
+        void print(string&, int);   // dosyaya yazdirma
         void print();               // tüm liste
         bool empty() const;         // is list empty?
         void add(Student*);		    // add to back of list
