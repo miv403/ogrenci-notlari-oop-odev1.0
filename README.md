@@ -9,10 +9,6 @@ date: 2024-10-26
 
 ## ödev açıklaması
 
-> [!WARNING]
-> kalma için sadece ortalama esas alınmış.
-> devamsızlık durumu kullanılmıyor!
-
 1. girdi.csv dosyasından veriler okunarak bir nesne sınıfı
 oluşturulacaktır.
 
