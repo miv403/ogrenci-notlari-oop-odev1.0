@@ -87,7 +87,7 @@ void StList::print(){
 void StList::print(int opt){ // ekrana yazdırma
     
     Student* current = head;
-    
+
     opt = !(opt == '0');
     while(current != nullptr){
         if((opt ? current->isPass() : !current->isPass())){
@@ -131,7 +131,6 @@ void StList::print(string& dosyaStr, int opt){ // dosyaya yazdırma
     }
 
 }
-
 
 void StList::add(Student* node) {
     if (head == NULL) head = node;
