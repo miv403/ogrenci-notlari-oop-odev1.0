@@ -1,165 +1,147 @@
-#include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <string>
-#include <vector>
-
 #include "class.h"
 
-using namespace std;
+#include <iostream>
+#include <iomanip>
+#include <cstddef>
+#include <fstream>
+#include <string>
 
-/************************** Student *****************************/
 
-void Student::average() {
-    ortalama = (sinav0 + sinav1 + odev) * 0.2 + final * 0.4;
+Student::Student(size_t mevcut) 
+: mevcut (mevcut){ // TODO degiskenler ilk deger verme
+
+    ad = new string[mevcut];
+    ogrNo = new string[mevcut];
+    sinav0 = new double[mevcut];
+    sinav1 = new double[mevcut];
+    odev = new double[mevcut];
+    sinav2 = new double[mevcut];
+    devamSayisi = new int[mevcut];
+
+    ortalama = new double[mevcut];
+
 }
 
-bool Student::isPass() {
-    return ((ortalama >= 50) && devamSayisi >= 7 ) ? true : false;
+Student::~Student() {
+
+    delete[] ad;
+    delete[] ogrNo;
+    delete[] sinav0;
+    delete[] sinav1;
+    delete[] odev;
+    delete[] sinav2;
+    delete[] devamSayisi;
+    delete[] ortalama;
+
 }
 
-/************************** StList *****************************/
+void Student::readFromCSV(ifstream& dosya) {
 
-StList::StList() {
-    head = NULL;
-}
+    string satir;
+    getline(dosya, satir);
+    vector<string> tokens;
+    for(size_t i = 0; i < mevcut; ++i) {
+        getline(dosya, satir);
+        
+        tokens = parseLine(satir);
 
-StList::~StList() {
-    while (!empty()) remove();
-}
+        ad[i] = tokens.at(0);
+        ogrNo[i] = tokens.at(1);
+        sinav0[i] = stod(tokens.at(2));
+        sinav1[i] = stod(tokens.at(3));
+        odev[i] = stod(tokens.at(4));
+        sinav2[i] = stod(tokens.at(5));
 
-void StList::readFromCSV(ifstream& dosya) {
-
-    string line;
-
-    getline(dosya, line); // başlık satırı yok sayılıyor
-
-    while(getline(dosya, line)) { //yeni satır alınıyor
-
-        Student* student = new Student;
-
-        vector<string> tokens = parseLine(line); 
-
-        // ["ziya","123","456", ... ""] // string vektörü
-
-        student->ad = tokens.at(0);
-        student->ogrNo = tokens.at(1);
-        student->sinav0 = stod(tokens.at(2));
-        student->sinav1 = stod(tokens.at(3));
-        student->odev = stod(tokens.at(4));
-        student->final = stod(tokens.at(5));
-        student->next = NULL;
-
-        if(tokens.at(6) == "")
-            student->devamSayisi = 0;
-        else
-            student->devamSayisi = stoi(tokens.at(6));
-        add(student);
-#ifdef DEBUG
-        cout << "added!" <<endl;
-#endif
-    }
-}
-
-void StList::evalAvg() {
-
-    Student* current = head;
-
-    while(current != nullptr) {
-        current->average();
-        current = current->next;
-    }
-}
-
-void StList::print(){
-    Student* current = head;
-    while(current != nullptr){
-        cout << setw(12) << setfill(' ') << left;
-        cout << current->ad;
-        cout << setw(12) << right;
-        cout << current->ortalama;
-        cout << setw(18) << right;
-        cout << (current->isPass() ? "gecti" : "kaldi") << endl;
-        current = current->next;
-    }
-}
-
-void StList::print(int opt){ // ekrana yazdırma
-    
-    Student* current = head;
-    
-    opt = !(opt == '0');
-    while(current != nullptr){
-        if((opt ? current->isPass() : !current->isPass())){
-            cout << setw(12) << setfill(' ') << left;
-            cout << current->ad;
-            cout << setw(12) << right;
-            cout << current->ortalama;
-            cout << setw(18) << right;
-            cout << (current->isPass() ? "gecti" : "kaldi") << endl;
+        if(tokens.at(6) == "") {
+            devamSayisi[i] = 0;
+        }else {
+            devamSayisi[i] = stoi(tokens.at(6));
         }
-        current = current->next;
     }
 }
 
-void StList::print(string& dosyaStr, int opt){ // dosyaya yazdırma
-    Student* current = head;
-    ofstream dosya(dosyaStr, ios::trunc);
+void Student::evalAvg() {
 
-    dosya << "ad,ortalama,gecme durumu" << endl;
+    for(size_t i = 0; i < mevcut; ++i) {
+        ortalama[i] = average(i);
+    }
+}
+
+void Student::print() {
+
+    for(size_t i = 0; i < mevcut; ++i) {
+        printLine(i);
+        cout << (isPass(i) ? "gecti" : "kaldi") << endl;
+    }
+
+}
+
+void Student::print(int opt) {
 
     switch (opt) {
-    case '2':
-        while(current != nullptr) {
-            dosya << current->ad << ',';
-            dosya << current->ortalama << ',';
-            dosya << (current->isPass() ? "gecti" : "kaldi") << endl;
-            current = current->next;
-        }
-    break;
-    default:
-        opt = (opt == '0') ? false : true;
-        while(current != nullptr){
-            if((opt ? current->isPass() : !current->isPass())){
-                dosya << current->ad << ',' ;
-                dosya << current->ortalama << ',';
-                dosya << (current->isPass() ? "gecti" : "kaldi") << endl;
+    case 0:
+        for(size_t i = 0; i < mevcut; ++i) {
+            if(!isPass(i)) {
+                printLine(i);
+                cout << "kaldi" << endl;
             }
-            current = current->next;
         }
-    break;
-    }
-
-}
-
-
-void StList::add(Student* node) {
-    if (head == NULL) head = node;
-    else {
-        Student* first = head;
-        while (first->next != NULL) {
-            first = first->next;
+        break;
+    case 1:
+        for(size_t i = 0; i < mevcut; ++i) {
+            if(isPass(i)) {
+                printLine(i);
+                cout << "gecti" << endl;
+            }
         }
-        first->next = node;
+        break;
+    default:
+        cerr << "Student::print() gecersiz secenek! functions.cpp:"
+                << __LINE__ << endl;
+        break;
     }
 }
 
-void StList::remove() {
-    if (empty()) {
-        cout << "List is empty !" << endl;
+void Student::print(string& yol) {
+
+    ofstream cikti;
+    cikti.open(yol);
+    if(!cikti) {
+        cerr << yol << " dosyasi acilamadi!" << endl;
         return;
     }
 
-    Student* temp	= head;     // save current head
-    head = head->next;          // skip over old head
-    delete temp;                // delete the old head
+    cikti << "ogrNo,ad,ortalama,gecmeDurumu" << endl;
+
+    for(size_t i = 0; i < mevcut; ++i) {
+        cikti << ogrNo[i] << ","
+            <<   ad[i] << ","
+            << ortalama[i] << ","
+            << (isPass(i) ? "gecti" : "kaldi") << endl;
+    }
 }
 
-bool StList::empty() const {
-    return head == NULL;
+void Student::printLine(size_t i) {
+    cout << setw(12) << setfill(' ') << right;
+    cout << ogrNo[i];
+    cout << setw(12) << setfill(' ') << right;
+    cout << ad[i];
+    cout << setw(12) << right;
+    cout << ortalama[i];
+    cout << setw(18) << right;
 }
 
-vector<string> StList::parseLine(string& line) {
+double Student::average(size_t i) {
+
+    return (sinav0[i] + sinav1[i] + odev[i]) * 0.2 + (sinav2[i] * 0.4);
+}
+
+bool Student::isPass(size_t i) {
+
+    return (ortalama[i] > 50);
+}
+
+vector<string> Student::parseLine(string& line) {
     // alınan satırın virgülle vektöre eklenmesi
 
     vector<string> tokens; // degerlerin listesi
@@ -176,29 +158,3 @@ vector<string> StList::parseLine(string& line) {
 
     return tokens;
 }
-
-#ifdef DEBUG
-void StList::printDebug() {
-    if (empty())
-    {
-        cout << "List is empty !" << endl;
-        return;
-    }
-
-    Student* first = head;
-
-    cout << "printDebug(): " << endl;
-    cout << "ad\togrNo\tsinav0\tsinav1\todev\tfinal\tdevamSayisi" << endl;
-    while (first != NULL)
-    {
-        cout << first-> ad <<  "\t";
-        cout << first->ogrNo << "\t";
-        cout << first->sinav0 << "\t";
-        cout << first->sinav1 << "\t";
-        cout << first->odev << "\t";
-        cout << first->final << "\t";
-        cout << first->devamSayisi << endl;
-        first = first->next;
-    }
-}
-#endif

@@ -1,43 +1,38 @@
-#include <ostream>
+#include <cstddef>
 #include <string>
+#include <fstream>
 #include <vector>
 
 using namespace std;
+
 class Student {
+
     public:
 
-        void average();
-        bool isPass();
+    Student(size_t);
+    ~Student();
 
-        Student * next;
-        string ad;
-        string ogrNo;
-        double sinav0;
-        double sinav1;
-        double odev;
-        double final;
-        int devamSayisi;
-        double ortalama;
-};
+    void readFromCSV(ifstream&);
+    void evalAvg();
+    void print();
+    void print(int);
+    void print(string&);
 
-class StList {
-    public:
-        Student* head;	            
-        StList();
-        ~StList();
-
-        void readFromCSV(ifstream&);
-        void evalAvg();
-        void print();               // tüm listeyi ekrana yazdırma
-        void print(int);            // ekrana yazdırma kalanlar/gecenler
-        void print(string&, int);   // dosyaya yazdirma
-
-#ifdef DEBUG
-        void printDebug(); // DEBUG için
-#endif
     private:
-        void add(Student*);		    // listenin sonuna ekleme
-        void remove();              // listenin önünden kaldırma
-        bool empty() const;
-        vector<string> parseLine(string&); // satırları virgülle ayırma
+
+    void printLine(size_t i); // tek satırı ekrana yazdırmak için
+    double average(size_t);
+    bool isPass(size_t);
+    vector<string> parseLine(string&);
+
+    size_t mevcut;
+
+    string * ad;
+    string * ogrNo;
+    double * sinav0; // ara sınav
+    double * sinav1; // ikinci sınav
+    double * odev;
+    double * sinav2; // final
+    int * devamSayisi;
+    double * ortalama;
 };

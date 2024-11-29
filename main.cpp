@@ -1,84 +1,102 @@
-#include <iostream>
+#include <cstddef>
 #include <fstream>
+#include <iostream>
 #include <string>
-#include <iomanip>
-#include "./functions.cpp"
+#include "functions.cpp"
 
-#define NOTLAR "./data/notlar.csv"
+#define DOSYA "./data/notlar.csv"
 
 using namespace std;
 
 void printMenu();
-void BASLIK();
+void printTitle();
+bool write2FilePrompt();
+void getFilePath(string& path);
 
 int main() {
 
-    // BASLIK();
-
-    ifstream notlarDosya{};
-
-    notlarDosya.open(NOTLAR);
-    
+    ifstream notlarDosya;
+    notlarDosya.open(DOSYA);
     if(!notlarDosya){
-        cerr << "Hata: " << NOTLAR << " dosyasi bulunamadi!" << endl;
+        cerr << "Hata: " << DOSYA << " dosyasi bulunamadi!" << endl;
         return 1;
     }
 
-    StList list;
+    // sınıf mevcudunu hesaplama
+    size_t mevcut = 0;
+    string line;
 
-    list.readFromCSV(notlarDosya);
+    // başlık satırını atlama
+    getline(notlarDosya, line);
+    while(getline(notlarDosya,line)) { mevcut++; }
+
+    // cursor'u başa döndürmek için dosyayı açıp kapatma
     notlarDosya.close();
+    notlarDosya.open(DOSYA);
 
-#ifdef DEBUG
-    list.printDebug(); //DEBUG
-#endif
+    Student ogrenci(mevcut);
 
-    list.evalAvg();
+    ogrenci.readFromCSV(notlarDosya);
+    ogrenci.evalAvg();
 
-#ifdef DEBUG
-    Student * current = list.head; // DEBUG
+    cout << "Hos Geldiniz." << endl;
 
-    while(current != nullptr) {
-        cout << current->devamSayisi << endl;
-        current = current->next;
+    int opt{};
+    do {
+        printMenu();
+        cin >> opt;
+    }while(opt < 0 || opt > 2);
+
+    switch (opt) {
+        case 0:
+            printTitle();
+            ogrenci.print(opt);
+            break;
+        case 1:
+            printTitle();
+            ogrenci.print(opt);
+            break;
+        case 2:
+            if(write2FilePrompt()) {
+                string yol;
+                getFilePath(yol);
+                ogrenci.print(yol);
+            }else{
+                printTitle();
+                ogrenci.print();
+            }
+            break;
     }
 
-    //END DEBUG
-#endif
-
-    char girdi{};
-    string dosyaYolu{};
-
-    cout << "sonuclari dosyaya yazdirmak ister misiniz [E/h]" << endl << "? ";
-    cin >> girdi;
-
-    if(girdi == 'E' || girdi == 'e') {
-        cout << "dosya yolunu giriniz: ";
-        cin >> dosyaYolu;
-        do{
-            printMenu();
-            cin >> girdi;
-        }while(girdi < '0' || girdi > '2');
-
-        list.print(dosyaYolu, girdi);
-
-    }else if(girdi == 'H' || girdi == 'h') {
-        do{
-            printMenu();
-            cin >> girdi;
-        }while(girdi < '0' || girdi > '2');
-
-        cout << setw(12) << setfill(' ') << left;
-        cout << "ad";
-        cout << setw(12) << right;
-        cout << "ortalama";
-        cout << setw(18) << right;
-        cout << "gecme durumu" << endl;
-        cout << setw(44) << setfill('-') << "" << endl;
-
-        girdi == '2' ? list.print() : list.print(girdi);
-    }
     return 0;
+}
+
+bool write2FilePrompt() {
+    char opt{};
+    do {
+        cout << "sonuclari dosyaya yazdirmak ister misiniz? [E/h]: ";
+        cin >> opt;
+    }while(opt != 'E' && opt != 'e' && opt != 'H' && opt != 'h');
+
+    return (opt == 'E' || opt == 'e');
+}
+
+void getFilePath(string& path) {
+    cout << "dosya adini girin: ";
+    cin >> path;
+}
+
+
+void printTitle() {
+            cout << setw(12) << setfill(' ') << right;
+            cout << "ogrenci no";
+            cout << setw(12) << setfill(' ') << right;
+            cout << "ad";
+            cout << setw(12) << right;
+            cout << "ortalama";
+            cout << setw(18) << right;
+            cout << "gecme durumu" << endl;
+            cout << setw(52) << setfill('-') << "" << endl;
 }
 
 void printMenu() {
@@ -88,26 +106,3 @@ void printMenu() {
             cout << "2. tum liste" << endl;
             cout << "? ";
 }
-
-void BASLIK() {
-
-    const string MAGENTA = "\033[35m";
-    const string BGREEN = "\033[92m";
-    const string RESET = "\033[0m";  // Resets to default color
-
-    cout << MAGENTA << "              _/                      " << endl;
-    cout << MAGENTA << "   _/_/_/_/      _/    _/    _/_/_/   " << endl;
-    cout << MAGENTA << "      _/    _/  _/    _/  _/    _/    " << endl;
-    cout << MAGENTA << "   _/      _/  _/    _/  _/    _/     " << endl;
-    cout << MAGENTA << "_/_/_/_/  _/    _/_/_/    _/_/_/      " << endl;
-    cout << MAGENTA << "                   _/                 " << endl;
-    cout << MAGENTA << "              _/_/                    " << endl;
-
-    cout <<BGREEN << "                                            _/           " << endl;
-    cout <<BGREEN << "     _/_/_/        _/_/    _/_/_/  _/_/        _/_/_/    " << endl;
-    cout <<BGREEN << "  _/    _/      _/_/_/_/  _/    _/    _/  _/  _/    _/   " << endl;
-    cout <<BGREEN << " _/    _/      _/        _/    _/    _/  _/  _/    _/    " << endl;
-    cout <<BGREEN << "  _/_/_/  _/    _/_/_/  _/    _/    _/  _/  _/    _/     " << endl;
-    cout << RESET << endl << endl;
-}
-
