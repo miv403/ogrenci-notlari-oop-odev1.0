@@ -8,7 +8,7 @@
 
 
 Student::Student(size_t mevcut) 
-: mevcut (mevcut){ // TODO degiskenler ilk deger verme
+: mevcut (mevcut){ 
 
     ad = new string[mevcut];
     ogrNo = new string[mevcut];
@@ -20,6 +20,16 @@ Student::Student(size_t mevcut)
 
     ortalama = new double[mevcut];
 
+    for(int i = 0; i < mevcut; ++i) {
+        ad[i] = "";
+        ogrNo[i] = "";
+        sinav0[i] = 0;
+        sinav1[i] = 0;
+        odev[i] = 0;
+        sinav2[i] = 0;
+        devamSayisi[i] = 0;
+        ortalama[i] = 0;
+    }
 }
 
 Student::~Student() {
@@ -76,14 +86,16 @@ void Student::print() {
 
 }
 
-void Student::print(int opt) {
-
+void Student::print(int opt){
+    size_t sayac{};
     switch (opt) {
     case 0:
+
         for(size_t i = 0; i < mevcut; ++i) {
             if(!isPass(i)) {
                 printLine(i);
                 cout << "kaldi" << endl;
+                sayac++;
             }
         }
         break;
@@ -92,6 +104,7 @@ void Student::print(int opt) {
             if(isPass(i)) {
                 printLine(i);
                 cout << "gecti" << endl;
+                sayac++;
             }
         }
         break;
@@ -99,7 +112,9 @@ void Student::print(int opt) {
         cerr << "Student::print() gecersiz secenek! functions.cpp:"
                 << __LINE__ << endl;
         break;
+
     }
+    cout << sayac << " ogrenci " << (opt ? "gecti" : "kaldi") << endl;
 }
 
 void Student::print(string& yol) {
