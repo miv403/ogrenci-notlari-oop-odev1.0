@@ -6,3 +6,5 @@ tmp/
 *.o
 *.dat
 *.txt
+other/*
+*.zip
